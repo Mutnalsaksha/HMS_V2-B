@@ -230,16 +230,13 @@ app.get('/displaydata', async (req, res) => {
 
 // Endpoint to get data by requestId
 app.get('/request/:id', async (req, res) => {
-  console.log(`Fetching request with ID: ${req.params.id}`); // Log request ID
   try {
     const request = await BookService.findOne({ requestId: req.params.id });
     if (!request) {
-      console.log(`Request with ID: ${req.params.id} not found`);
       return res.status(404).send('Request not found');
     }
     res.send(request);
   } catch (error) {
-    console.error(`Error fetching request with ID: ${req.params.id}`, error); // Log errors
     res.status(500).send(error);
   }
 });
@@ -247,7 +244,6 @@ app.get('/request/:id', async (req, res) => {
 
 // Endpoint to update data by requestId
 app.put('/request/:id', async (req, res) => {
-  console.log(`Updating request with ID: ${req.params.id}`); // Log request ID
   try {
     const request = await BookService.findOneAndUpdate(
       { requestId: req.params.id },
@@ -255,14 +251,10 @@ app.put('/request/:id', async (req, res) => {
       { new: true }
     );
     if (!request) {
-      console.log(`Request with ID: ${req.params.id} not found`);
       return res.status(404).send('Request not found');
     }
-
-    console.log(`Request with ID: ${req.params.id} updated successfully`);
     res.send(request);
   } catch (error) {
-    console.error(`Error updating request with ID: ${req.params.id}`, error); // Log errors
     res.status(500).send(error);
   }
 });
@@ -294,7 +286,6 @@ app.get('/getTicketDetails/:id', async (req, res) => {
       res.status(404).send('Ticket not found');
     }
   } catch (error) {
-    console.error('Error fetching ticket details:', error);
     res.status(500).send('Internal Server Error');
   }
 });
@@ -315,7 +306,6 @@ app.get('/api/bookservice/:id', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-
 
 // Simple route for the root path
 app.get('/', (req, res) => {
